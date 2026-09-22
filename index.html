@@ -22,29 +22,19 @@
     .nav-left { display: flex; align-items: center; gap: 12px; }
     .nav-desktop { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; justify-content: center; }
     .nav-actions { display: flex; align-items: center; gap: 12px; }
-    .nav-menu-btn { display: none; align-items: center; justify-content: center; width: 42px; height: 42px; padding: 0; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; background: transparent; color: #fff; cursor: pointer; }
-    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 90; }
-    .nav-overlay.open { display: block; }
-    .nav-sidebar { position: fixed; top: 0; left: 0; width: min(300px, 86vw); height: 100%; background: #111; border-right: 1px solid rgba(255,255,255,0.08); z-index: 100; padding: 24px 20px; transform: translateX(-100%); transition: transform 0.25s ease; display: flex; flex-direction: column; gap: 8px; }
-    .nav-sidebar.open { transform: translateX(0); }
-    .nav-sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-    .nav-sidebar a { color: #e5e5e5; font-size: 16px; font-weight: 500; padding: 14px 12px; border-radius: 10px; }
-    .nav-sidebar a:hover { background: rgba(255,255,255,0.06); color: #f472b6; }
-    .nav-close-btn { width: 40px; height: 40px; border: none; border-radius: 10px; background: rgba(255,255,255,0.06); color: #fff; cursor: pointer; font-size: 22px; line-height: 1; }
-    body.nav-open { overflow: hidden; }
-
     .site-footer { padding: 64px 48px 32px; background: #0a0a0a; border-top: 1px solid rgba(255,255,255,0.06); }
-    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; padding-bottom: 44px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.4fr; gap: 40px; align-items: start; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-contact { display: flex; flex-direction: column; gap: 12px; }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; flex-wrap: wrap; gap: 16px; }
     .footer-socials { display: flex; gap: 16px; }
 
     @media (max-width: 900px) {
       .site-nav { padding: 14px 20px; }
       .nav-desktop { display: none !important; }
-      .nav-menu-btn { display: flex; }
       .site-footer { padding: 48px 20px 28px; }
-      .footer-grid { grid-template-columns: repeat(3, 1fr); gap: 28px 12px; }
-      .footer-brand { grid-column: 1 / -1; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+      .footer-brand { text-align: center; }
+      .footer-contact { align-items: center; }
       .footer-bottom { flex-direction: column; align-items: center; text-align: center; gap: 18px; }
       .footer-socials { order: 2; }
       .footer-tagline { order: 3; }
@@ -59,37 +49,12 @@
   <!-- NAV -->
   <nav class="site-nav">
     <div class="nav-left">
-      <button class="nav-menu-btn" type="button" aria-label="Open menu" onclick="{{ openMenu }}">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
       <div style="font-size:26px;font-weight:800;background:linear-gradient(135deg,#ec4899,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;color:transparent">iScroll</div>
     </div>
-    <div class="nav-desktop" data-nav-desktop="true">
-      <a href="#" style="color:#e5e5e5;font-size:15px;font-weight:500">Home</a>
-      <a href="#" style="color:#e5e5e5;font-size:15px;font-weight:500">About</a>
-      <a href="#" style="color:#e5e5e5;font-size:15px;font-weight:500">Features</a>
-      <a href="#" style="color:#e5e5e5;font-size:15px;font-weight:500">Safety</a>
-      <a href="#" style="color:#e5e5e5;font-size:15px;font-weight:500">Help</a>
-      <a href="#" style="color:#e5e5e5;font-size:15px;font-weight:500">Contact</a>
-    </div>
     <div class="nav-actions">
-      <button style="padding:11px 26px;border-radius:999px;background:linear-gradient(135deg,#ec4899,#a855f7);color:#fff;border:none;font-weight:600;font-size:14px;cursor:pointer">Download App</button>
+      <a data-store-download href="https://play.google.com/store/apps/details?id=com.app.iscroll" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:11px 26px;border-radius:999px;background:linear-gradient(135deg,#ec4899,#a855f7);color:#fff;border:none;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none">Download App</a>
     </div>
   </nav>
-
-  <div id="nav-overlay" class="{{ overlayClass }}" onclick="{{ closeMenu }}"></div>
-  <aside id="nav-sidebar" class="{{ sidebarClass }}" aria-label="Mobile navigation">
-    <div class="nav-sidebar-header">
-      <div style="font-size:22px;font-weight:800;background:linear-gradient(135deg,#ec4899,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;color:transparent">iScroll</div>
-      <button class="nav-close-btn" type="button" aria-label="Close menu" onclick="{{ closeMenu }}">&times;</button>
-    </div>
-    <a href="#" onclick="{{ closeMenu }}">Home</a>
-    <a href="#" onclick="{{ closeMenu }}">About</a>
-    <a href="#" onclick="{{ closeMenu }}">Features</a>
-    <a href="#" onclick="{{ closeMenu }}">Safety</a>
-    <a href="#" onclick="{{ closeMenu }}">Help</a>
-    <a href="#" onclick="{{ closeMenu }}">Contact</a>
-  </aside>
 
   <!-- HERO -->
   <section style="position:relative;padding:88px 48px 100px;background:radial-gradient(ellipse 900px 600px at 78% 20%, rgba(168,85,247,0.18), transparent 70%)">
@@ -105,14 +70,14 @@
         <p style="font-size:18px;color:#a0a0a0;line-height:1.6;margin:0 0 36px">Upload. Discover. Collaborate. Earn coins. Build your audience.</p>
 
         <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:40px">
-          <button style="display:flex;align-items:center;gap:10px;padding:12px 24px;border-radius:14px;background:#161616;border:1px solid #2a2a2a;color:#fff;cursor:pointer">
+          <a href="https://apps.apple.com/app/iscroll/id0000000000" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:10px;padding:12px 24px;border-radius:14px;background:#161616;border:1px solid #2a2a2a;color:#fff;cursor:pointer;text-decoration:none">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.47-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8.79-.16 1.72-.83 3.08-.71 1.54.13 2.68.9 3.34 2.24-2.9 1.85-2.5 5.58.5 6.87-.4.9-.85 1.78-1.99 3.77zM12.03 7.25c-.15-2.23 1.66-4.09 3.75-4.25.29 2.27-1.94 4.44-3.75 4.25z"/></svg>
             <div style="text-align:left"><div style="font-size:10px;color:#a0a0a0">Download on the</div><div style="font-size:15px;font-weight:600">App Store</div></div>
-          </button>
-          <button style="display:flex;align-items:center;gap:10px;padding:12px 24px;border-radius:14px;background:#161616;border:1px solid #2a2a2a;color:#fff;cursor:pointer">
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.app.iscroll" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:10px;padding:12px 24px;border-radius:14px;background:#161616;border:1px solid #2a2a2a;color:#fff;cursor:pointer;text-decoration:none">
             <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M3 3.5v17l13-8.5-13-8.5z"/><path fill="#34A853" d="M3 20.5l13-8.5-4.5-3L3 20.5z"/><path fill="#FBBC04" d="M16 12l3.5-2-5-2.5L16 12z"/><path fill="#EA4335" d="M11.5 9.5L16 12l3.5-2z"/></svg>
             <div style="text-align:left"><div style="font-size:10px;color:#a0a0a0">Get it on</div><div style="font-size:15px;font-weight:600">Google Play</div></div>
-          </button>
+          </a>
         </div>
 
         <div style="display:flex;gap:32px;flex-wrap:wrap">
@@ -221,7 +186,7 @@
       <div>
         <h2 style="font-size:38px;font-weight:800;margin:0 0 16px;line-height:1.15">Explore the App</h2>
         <p style="color:#a0a0a0;font-size:15.5px;line-height:1.6;margin:0 0 28px">Everything you need to create, grow and earn &mdash; all in one place.</p>
-        <button style="padding:13px 28px;border-radius:999px;background:linear-gradient(135deg,#ec4899,#a855f7);color:#fff;border:none;font-weight:700;font-size:15px;cursor:pointer">Download Now</button>
+        <a data-store-download href="https://play.google.com/store/apps/details?id=com.app.iscroll" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:13px 28px;border-radius:999px;background:linear-gradient(135deg,#ec4899,#a855f7);color:#fff;border:none;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none">Download Now</a>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:22px">
@@ -298,20 +263,13 @@
           <div style="color:#8a8a8a;font-size:14px">Create &bull; Grow &bull; Earn</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="color:#fff;font-weight:600;font-size:14px;margin-bottom:4px">Company</div>
-          <a href="#" style="color:#8a8a8a;font-size:14px">About</a>
-          <a href="#" style="color:#8a8a8a;font-size:14px">Help Centre</a>
-          <a href="#" style="color:#8a8a8a;font-size:14px">Contact</a>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="color:#fff;font-weight:600;font-size:14px;margin-bottom:4px">Trust &amp; Safety</div>
-          <a href="#" style="color:#8a8a8a;font-size:14px">Safety</a>
-          <a href="#" style="color:#8a8a8a;font-size:14px">Community Guidelines</a>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:12px">
           <div style="color:#fff;font-weight:600;font-size:14px;margin-bottom:4px">Legal</div>
-          <a href="#" style="color:#8a8a8a;font-size:14px">Privacy Policy</a>
-          <a href="#" style="color:#8a8a8a;font-size:14px">Terms of Service</a>
+          <a href="./privacy-policy.html" style="color:#8a8a8a;font-size:14px">Privacy Policy</a>
+          <a href="./terms-of-service.html" style="color:#8a8a8a;font-size:14px">Terms of Service</a>
+        </div>
+        <div class="footer-contact">
+          <div style="color:#fff;font-weight:600;font-size:14px;margin-bottom:4px">Contact</div>
+          <a href="mailto:support@iscrollapp.com" style="color:#8a8a8a;font-size:14px;word-break:break-all">support@iscrollapp.com</a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -353,6 +311,16 @@ class Component extends DCLogic {
     };
   }
 }
+</script>
+<script>
+(function () {
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent || '');
+  if (!isIOS) return;
+  var appStore = 'https://apps.apple.com/app/iscroll/id0000000000';
+  document.querySelectorAll('[data-store-download]').forEach(function (el) {
+    el.href = appStore;
+  });
+})();
 </script>
 </body>
 </html>
